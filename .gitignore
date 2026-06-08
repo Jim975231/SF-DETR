@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.idea/
+.vscode/
+
+# Training results
+runs/
+
+# Weights
+*.pt
+*.pth
+*.onnx
+
+# Logs
+*.log
+
+# Dataset
+datasets/
+data/
+
+# Windows
+Thumbs.db
+Desktop.ini
