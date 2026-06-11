@@ -1,59 +1,59 @@
 # Spatial–Frequency Synergistic Enhancement for Robust Infrared Small Target Detection in Cluttered Scenes
 
-**Our paper has been submitted to The Visual Computer. The code is uploaded first.**
+## **This paper has been submitted to 《*The Visual Computer》*.**  
 
-```
-SF-DETR is an improved RT-DETR framework designed for infrared small target detection (IRSTD).
+The source code and models are released to facilitate reproducibility and further research.
 
-The proposed method introduces:
+##  Overview
 
-- SRAIFI (Spatial Receptive-field Adaptive Infrared Feature Interaction)
-- SFSC Block (Spatial-Frequency Synergistic Convolution Block)
-- CFARepC3 (Cross-scale Feature Aggregation RepC3)
+SF-DETR is an improved RT‑DETR framework designed for **infrared small target detection (IRSTD)** in highly cluttered scenes.  
+We propose three novel modules that jointly leverage **spatial and frequency domain synergies** to enhance weak target features while suppressing complex background interference.
 
-to enhance weak target representation and suppress complex background interference.
+| Module        | File Location                               | Core Function                                                |
+| ------------- | ------------------------------------------- | ------------------------------------------------------------ |
+| **SFSCBlock** | `ultralytics/nn/IRSTD_modules/SFSCBlock.py` | Backbone feature extraction using depthwise partial convolution + frequency‑domain gating + spatial calibration |
+| **SRAIFI**    | `ultralytics/nn/IRSTD_modules/SRAIFI.py`    | Intra‑scale feature interaction via spectral‑residual attention (frequency anomaly miner + transformer) |
+| **CFARepC3**  | `ultralytics/nn/IRSTD_modules/CFARepC3.py`  | Lightweight frequency detail injection + coordinate attention for FPN/PAFPN fusion |
 
-
-The overall network architecture of the model is specified in model/SF-DETR.yaml. 
-The implementation details of the three core modules—SRAIM, Light-FDE, and CFARepC3—can be found in the following files:
-ultralytics/nn/IRSTD_modules/SRAIFI.py
-ultralytics/nn/IRSTD_modules/SFSCBlock.py
-ultralytics/nn/IRSTD_modules/CFARepC3.py
-
-
-```
-
----
+The overall network architecture is defined in `model/SF-DETR.yaml`.  
+All modules are integrated into the Ultralytics YOLO/RT‑DETR framework.
 
 ## Datasets
 
+We evaluate on two public infrared small‑target datasets:
+
+- [DAUB](https://www.scidb.cn/en/detail?dataSetId=720626420933459968)
+- [HIT‑UAV](https://www.scidb.cn/en/detail?dataSetId=90340ed7f15d4b83a32094f1cfa9b39e&version=V1)
+
+##  Environment
+
+- Python 3.10
+
+- PyTorch 2.1.0
+
+- CUDA 12.1
+
+  **Install dependencies:**
+
 ```
-The DAUB dataset can be accessed at:
-
-[DAUB Dataset](https://www.scidb.cn/en/detail?dataSetId=720626420933459968)
-
-The HIT-UAV dataset is available at:
-
-[HIT-UAV Dataset](https://www.scidb.cn/en/detail?dataSetId=90340ed7f15d4b83a32094f1cfa9b39e&version=V1)
-```
-
----
-
-## Environment
-
-```bash
-python 3.10
-torch 2.1.0
-cuda 12.1
-```
-
-Install dependencies:
-
-```bash
 pip install -r requirements.txt
 ```
 
-## Citation
 
-If you use this code or data, please cite the following:
-[Spatial–Frequency Synergistic Enhancement for Robust Infrared Small Target Detection in Cluttered Scenes], submitted to The Visual Computer.
+
+##  Citation
+
+If you use this code or the datasets in your research, please cite our paper as follows:
+
+
+
+```
+[Spatial–Frequency Synergistic Enhancement for Robust Infrared Small Target Detection in Cluttered Scenes], The Visual Computer, (submitted). 
+DOI of the paper (if available later): [will be added]
+```
+
+
+
+##  Acknowledgements
+
+This work builds upon [Ultralytics RT‑DETR](https://github.com/ultralytics/ultralytics) and uses the publicly available DAUB and HIT‑UAV datasets. We thank the contributors of these resources.
