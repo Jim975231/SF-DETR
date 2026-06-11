@@ -53,3 +53,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
+## Citation
+
+If you use this code or data, please cite the following:
+[Spatial–Frequency Synergistic Enhancement for Robust Infrared Small Target Detection in Cluttered Scenes], submitted to The Visual Computer.
