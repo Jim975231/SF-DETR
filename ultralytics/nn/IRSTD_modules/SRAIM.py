@@ -44,7 +44,7 @@ class FrequencyAnomalyMiner(nn.Module):
         return freq_mask
 
 
-class SRAIFI(nn.Module):
+class SRAIM(nn.Module):
 
 
     def __init__(self, c1, c2=None, num_heads=8, *args, **kwargs):
