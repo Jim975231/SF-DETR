@@ -25,11 +25,11 @@ def set_seed(seed=0):
 
 if __name__ == '__main__':
     model_yamls = [
-        r'D:\Project\SF-DETR\ultralytics\cfg\models\rt-detr\rtdetr-r18.yaml'
+        r'models/SF-DETR.yaml'
     ]
 
     datasets = [
-        r'D:\Project\dataset\data.yaml'
+        r'data.yaml'
     ]
 
     runs_per_model = 1
