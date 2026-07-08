@@ -12,7 +12,7 @@ SF-DETR 是一种改进的 RT‑DETR 框架，专为**红外小目标检测（IR
 |模块|文件位置|核心功能|
 | ------------- | ------------------------------------------- | ------------------------------------------------------------ |
 | **SFSCBlock** | `ultralytics/nn/IRSTD_modules/SFSCBlock.py` |基于深度可分离卷积、频域门控与空间校准的骨干特征提取|
-| **SRAIFI**    | `ultralytics/nn/IRSTD_modules/SRAIFI.py`    |通过谱残差注意力实现尺度内特征交互（频率异常挖掘器 + 变换器）|
+| **SRAIFI**    | `ultralytics/nn/IRSTD_modules/SRAIM.py`    |通过谱残差注意力实现尺度内特征交互（频率异常挖掘器 + 变换器）|
 | **CFARepC3**  | `ultralytics/nn/IRSTD_modules/CFARepC3.py`  |用于FPN/PAFPN融合的轻量级频率细节注入与坐标注意力机制|
 
 整个网络架构在model/SF-DETR.yaml`中定义。
