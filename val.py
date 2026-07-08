@@ -10,7 +10,7 @@ def get_weight_size(path):
     return f'{os.stat(path).st_size / 1024 / 1024:.1f}'
 
 if __name__ == '__main__':
-    model_path = r'D:\Project\runs\train\exp47\weights\best.pt'
+    model_path = r'runs\weights\best.pt'
     model = RTDETR(model_path)
     result = model.val(data='D:\Project\RTDETR-main\dataset\data.yaml',
                        split='val', imgsz=640, batch=4,
