@@ -37,7 +37,7 @@ We evaluate SF-DETR on two major benchmarks:
 - [DAUB](https://www.scidb.cn/en/detail?dataSetId=720626420933459968)
 - [HIT‑UAV](https://www.scidb.cn/en/detail?dataSetId=90340ed7f15d4b83a32094f1cfa9b39e&version=V1)
 
-1. **DAUB:** As there is no official split, we provide our dataset split files (`train_list.txt` and `val_list.txt`) in the repository.
+1. **DAUB:** Since the dataset does not provide an official split, we divide it into training, validation, and test sets with a ratio of 8:1:1.
 2. **HIT-UAV:** We strictly follow the official training/validation/test split.
 
 **Note:** All local absolute Windows paths have been removed. Please ensure your `data.yaml` is configured with the correct relative paths for your local environment.
