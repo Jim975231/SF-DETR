@@ -37,27 +37,37 @@ class ScharrConv(nn.Module):
 class SpectralGating(nn.Module):
     def __init__(self, dim):
         super().__init__()
-
         self.fc = nn.Sequential(
             nn.AdaptiveAvgPool2d(1),
-            nn.Conv2d(dim, dim, 1),
+            nn.Conv2d(dim, dim, 1, bias=False),
             nn.ReLU(inplace=True),
-            nn.Conv2d(dim, dim, 1),
-            nn.Sigmoid()
+            nn.Conv2d(dim, dim, 1, bias=False)
         )
+        
+        self.delta_f = nn.Sequential(
+            nn.Conv2d(dim, dim, 1, bias=False),
+            nn.GELU(),
+            nn.Conv2d(dim, dim, 3, padding=1, groups=dim, bias=False), 
+            nn.Conv2d(dim, dim, 1, bias=False)
+        )
+        
+        nn.init.zeros_(self.delta_f[-1].weight)
 
     def forward(self, x):
         b, c, h, w = x.shape
-
-
-        x = x.float()
-        fft = torch.fft.rfft2(x, norm='ortho')
-
-        gate = self.fc(x)
-
-
+        x_float = x.float()
+        
+        fft = torch.fft.rfft2(x_float, norm='ortho')
+        amp = torch.abs(fft) + 1e-8
+        log_amp = torch.log(amp)
+        
+        g_c = self.fc(x_float)
+        
+        delta = self.delta_f(log_amp)
+        
+        gate = torch.sigmoid(g_c + delta)
+        
         fft_weighted = fft * gate
-
         return torch.fft.irfft2(fft_weighted, s=(h, w), norm='ortho')
 
 
