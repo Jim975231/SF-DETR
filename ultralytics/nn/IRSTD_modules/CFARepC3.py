@@ -35,20 +35,23 @@ class CoordAtt(nn.Module):
 class LightFDE(nn.Module):
     def __init__(self, ch):
         super().__init__()
-        self.conv = nn.Conv2d(ch, ch, 1)
+        self.conv = nn.Conv2d(ch, ch, 1, bias=False)
         self.bn = nn.BatchNorm2d(ch)
-        self.gain = nn.Parameter(torch.tensor(1.1))
+        self.gain = nn.Parameter(torch.tensor(0.1))
 
     def forward(self, x_high):
+        b, c, h, w = x_high.shape
+        fft = torch.fft.rfft2(x_high.float(), norm='ortho')
 
-        fft = torch.fft.rfft2(x_high, norm='ortho')
+        freq_h = torch.fft.fftfreq(h, device=x_high.device).view(-1, 1)
+        freq_w = torch.fft.rfftfreq(w, device=x_high.device).view(1, -1)
+        radius = torch.sqrt(freq_h ** 2 + freq_w ** 2)
+        high_pass_mask = radius / radius.max()  
 
-        amp = torch.abs(fft)
-        phase = torch.angle(fft)
+        delta_fft = fft * (self.gain * high_pass_mask)
+        high_freq_patch = torch.fft.irfft2(delta_fft, s=(h, w), norm='ortho')
 
-        amp = amp * self.gain
-        refined = torch.fft.irfft2(torch.polar(amp, phase), s=x_high.shape[-2:], norm='ortho')
-        return self.bn(self.conv(refined - x_high))
+        return self.bn(self.conv(high_freq_patch))
 
 
 class CFARepC3(nn.Module):
