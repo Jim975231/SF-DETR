@@ -2,7 +2,7 @@
 
 **This paper has been submitted to *The Visual Computer*.**
 
-Source code and model weights are released to facilitate reproducibility and future research.
+Source code  are released to facilitate reproducibility and future research.
 
 ## Overview
 
